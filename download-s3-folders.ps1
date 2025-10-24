@@ -1,12 +1,26 @@
 # AWS S3 Folder Download Script
 # Downloads specific folders from S3 bucket using AWS CLI with SSO profile
+#
+# Usage Examples:
+#   .\download-s3-folders.ps1                                    # Use default folders
+#   .\download-s3-folders.ps1 -Folders @("77580", "77667")      # Specify folders as array
+#   .\download-s3-folders.ps1 77580 77667 77828                 # Specify folders as positional arguments
+#   .\download-s3-folders.ps1 -BucketName "my-bucket" -Folders @("77580")  # With other parameters
+#
+# Parameters:
+#   -BucketName: S3 bucket name (default: "production-cb-offergenerator")
+#   -Region: AWS region (default: "eu-west-2")
+#   -Profile: AWS profile name (default: "production")
+#   -LocalPath: Local download directory (default: ".\downloads")
+#   -Folders: Array of folder names to download (default: all folders)
 
 param(
     [string]$BucketName = "production-cb-offergenerator",
     [string]$Region = "eu-west-2",
     [string]$Profile = "production",
     [string]$LocalPath = ".\downloads",
-    [string[]]$Folders = @("77580", "77667", "77828", "77579", "77666", "77829", "77669", "77748", "77826", "77708", "77789", "77863")
+    [Parameter(ValueFromRemainingArguments=$true)]
+    [string[]]$Folders = @("77935", "77918", "77920", "77890", "77865")
 )
 
 # Function to write colored output
